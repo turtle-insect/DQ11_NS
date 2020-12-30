@@ -24,3 +24,9 @@ https://www.dq11.jp/s/pf/index.html
 * 任意の編集を行う
 * dataxxx.savを書き出す
 * saveDataを書き戻す
+
+# Special Thanks
+* Decrypt/Encrypt
+   * https://gbatemp.net/threads/transfering-dragon-quest-xi-s-pc-save-to-switch.549159/
+* ItemID
+   * http://roadbikebeginners.com/ps4-dragonquest11-cheat/
