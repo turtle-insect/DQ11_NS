@@ -9,6 +9,7 @@ namespace DQ11
 	class Character
 	{
 		private readonly uint mAddress;
+		public Bag Inventory { get; set; } = new Bag();
 		public String Name { get; private set; }
 
 		public Character(uint address)

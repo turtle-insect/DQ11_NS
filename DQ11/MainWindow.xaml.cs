@@ -69,13 +69,11 @@ namespace DQ11
 
 		private void ListBoxMenuItemDelete_Click(object sender, RoutedEventArgs e)
 		{
-			/*
 			if (ListBoxItem.SelectedIndex == -1) return;
 			var items = (DataContext as ViewModel)?.Items;
 			items.Delete(ListBoxItem.SelectedIndex);
 			items.Update();
 			DataContext = new ViewModel();
-			*/
 		}
 
 		private void ButtonItemChoice_Click(object sender, RoutedEventArgs e)

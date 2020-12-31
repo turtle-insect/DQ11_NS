@@ -53,7 +53,7 @@ namespace DQ11
 			}
 		}
 
-		public uint AAA
+		public uint Max
 		{
 			get
 			{

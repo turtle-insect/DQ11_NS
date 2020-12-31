@@ -55,6 +55,19 @@ namespace DQ11
 		{
 			if (mFileName == null || mBuffer == null) return false;
 
+			/*
+			uint address = FindAddress("Y32_1F_01", (uint)mBuffer.Length - 100)[0];
+			address += 26;
+			DeleteBlock(address, (uint)mBuffer.Length - address);
+			uint mod = (uint)mBuffer.Length % 16;
+			if (mod > 0) mod = 16 - mod;
+			AppendBlock(address, mod + 16);
+
+			WriteNumber(0x2D, 4, address);
+			uint body = 170 + ReadNumber(0x57, 4);
+			WriteNumber(body, 4, address - body - 16);
+			WriteNumber((uint)mBuffer.Length - 16, 4, address);
+			*/
 			WriteNumber((uint)mBuffer.Length - 12, 4, CalcCheckSum());
 			Byte[] enc = new Byte[mBuffer.Length];
 			Array.Copy(mBuffer, enc, enc.Length);
@@ -194,7 +207,7 @@ namespace DQ11
 
 		public void AppendBlock(uint address, uint size)
 		{
-			if (mBuffer == null) return;
+			if (mBuffer == null || size == 0) return;
 			address = CalcAddress(address);
 
 			Byte[] tmp = new Byte[mBuffer.Length + size];
@@ -205,7 +218,7 @@ namespace DQ11
 
 		public void DeleteBlock(uint address, uint size)
 		{
-			if (mBuffer == null) return;
+			if (mBuffer == null || size == 0) return;
 			address = CalcAddress(address);
 
 			Byte[] tmp = new Byte[mBuffer.Length - size];

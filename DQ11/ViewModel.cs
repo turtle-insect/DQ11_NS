@@ -10,7 +10,6 @@ namespace DQ11
 	class ViewModel
 	{
 		public ObservableCollection<Character> Party { get; set; } = new ObservableCollection<Character>();
-		public Bag Weapons { get; set; } = new Bag();
 		public Bag Items { get; set; } = new Bag();
 
 		public ViewModel()
@@ -22,11 +21,15 @@ namespace DQ11
 
 			var itemIndex = SaveData.Instance().FindAddress("DLC_07", 0);
 			if (itemIndex.Count == 0) return;
-			uint addresss = itemIndex[0] + 11;
-			addresss = Weapons.Create(addresss);
-			addresss += 60;
+			uint address = itemIndex[0] + 11;
 
-			Items.Create(addresss);
+			for(int i = 0; i < Party.Count; i++)
+			{
+				address = Party[i].Inventory.Create(address);
+				address += 4;
+			}
+
+			Items.Create(address);
 		}
 	}
 }

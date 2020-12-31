@@ -26,8 +26,8 @@
             <TabItem Header="Character">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <ListBox x:Name="ListBoxParty" ItemsSource="{Binding Party}" DisplayMemberPath="Name"/>
@@ -37,7 +37,6 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
                             <RowDefinition/>
@@ -80,9 +79,22 @@
                         <Label Grid.Row="12" Content="Charm"/>
                         <TextBox Grid.Row="12" Grid.Column="1" Text="{Binding ElementName=ListBoxParty, Path=SelectedItem.Charm, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
+                    <ListBox Grid.Column="2" ItemsSource="{Binding ElementName=ListBoxParty, Path=SelectedItem.Inventory.Items}">
+                        <ListBox.Resources>
+                            <local:ItemIDtoNameConverter x:Key="ItemIDtoNameConverter"/>
+                        </ListBox.Resources>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <!--<Button Content="..." Click="ButtonItemChoice_Click"/>-->
+                                    <Label Content="Name: "/>
+                                    <Label Content="{Binding Name, Converter={StaticResource ItemIDtoNameConverter}}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </TabItem>
-            <!--
             <TabItem Header="Item">
                 <ListBox x:Name="ListBoxItem" ItemsSource="{Binding Items.Items}">
                     <ListBox.Resources>
@@ -90,8 +102,10 @@
                     </ListBox.Resources>
                     <ListBox.ContextMenu>
                         <ContextMenu>
+                            <!--
                             <MenuItem Header="Append" Click="ListBoxMenuItemAppend_Click"/>
                             <MenuItem Header="Delete" Click="ListBoxMenuItemDelete_Click"/>
+                            -->
                         </ContextMenu>
                     </ListBox.ContextMenu>
                     <ListBox.ItemTemplate>
@@ -99,7 +113,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Count : "/>
                                 <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="40"/>
-                                <Button Content="..." Click="ButtonItemChoice_Click"/>
+                                <!--<Button Content="..." Click="ButtonItemChoice_Click"/>-->
                                 <Label Content="Name: "/>
                                 <Label Content="{Binding Name, Converter={StaticResource ItemIDtoNameConverter}}"/>
                             </StackPanel>
@@ -107,7 +121,6 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </TabItem>
-            -->
         </TabControl>
     </DockPanel>
 </Window>
