@@ -68,6 +68,7 @@ namespace DQ11
 			WriteNumber(body, 4, address - body - 16);
 			WriteNumber((uint)mBuffer.Length - 16, 4, address);
 			*/
+
 			WriteNumber((uint)mBuffer.Length - 12, 4, CalcCheckSum());
 			Byte[] enc = new Byte[mBuffer.Length];
 			Array.Copy(mBuffer, enc, enc.Length);

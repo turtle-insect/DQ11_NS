@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace DQ11
 {
-	class Item
+	class Item : INotifyPropertyChanged
 	{
 		private readonly uint mAddress;
+
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		public Item(uint address)
 		{
@@ -36,6 +39,7 @@ namespace DQ11
 				else if (value.Length + 1 < size) SaveData.Instance().DeleteBlock(mAddress + 4, size - (uint)value.Length);
 				SaveData.Instance().WriteNumber(mAddress, 4, (uint)value.Length + 1);
 				SaveData.Instance().WriteText(mAddress + 4, (uint)value.Length, value, System.Text.Encoding.ASCII);
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Name)));
 			}
 		}
 

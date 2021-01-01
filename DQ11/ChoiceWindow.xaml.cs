@@ -61,7 +61,7 @@ namespace DQ11
 
 			foreach (var item in items)
 			{
-				if (String.IsNullOrEmpty(filter) || item.Value.IndexOf(filter) >= 0)
+				if (item.Key.Length == ID.Length && (String.IsNullOrEmpty(filter) || item.Value.IndexOf(filter) >= 0))
 				{
 					ListBoxItem.Items.Add(item);
 				}

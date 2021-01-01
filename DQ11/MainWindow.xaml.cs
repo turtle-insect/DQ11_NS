@@ -85,7 +85,6 @@ namespace DQ11
 			dlg.ID = item.Name;
 			dlg.ShowDialog();
 			item.Name = dlg.ID;
-			DataContext = new ViewModel();
 		}
 
 		private void OpenFile(bool force)

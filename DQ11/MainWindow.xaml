@@ -86,7 +86,7 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <!--<Button Content="..." Click="ButtonItemChoice_Click"/>-->
+                                    <Button Content="..." Click="ButtonItemChoice_Click"/>
                                     <Label Content="Name: "/>
                                     <Label Content="{Binding Name, Converter={StaticResource ItemIDtoNameConverter}}"/>
                                 </StackPanel>
@@ -100,20 +100,20 @@
                     <ListBox.Resources>
                         <local:ItemIDtoNameConverter x:Key="ItemIDtoNameConverter"/>
                     </ListBox.Resources>
+                    <!--
                     <ListBox.ContextMenu>
                         <ContextMenu>
-                            <!--
                             <MenuItem Header="Append" Click="ListBoxMenuItemAppend_Click"/>
                             <MenuItem Header="Delete" Click="ListBoxMenuItemDelete_Click"/>
-                            -->
                         </ContextMenu>
                     </ListBox.ContextMenu>
+                    -->
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <Label Content="Count : "/>
                                 <TextBox Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" Width="40"/>
-                                <!--<Button Content="..." Click="ButtonItemChoice_Click"/>-->
+                                <Button Content="..." Click="ButtonItemChoice_Click"/>
                                 <Label Content="Name: "/>
                                 <Label Content="{Binding Name, Converter={StaticResource ItemIDtoNameConverter}}"/>
                             </StackPanel>
