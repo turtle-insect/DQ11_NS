@@ -13,7 +13,7 @@ https://www.dq11.jp/s/pf/index.html
 
 # Build環境
 * Windows 10(64bit)
-* Visual Studio 2019
+* Visual Studio 2022
 
 # 編集時の手順
 * saveDataを吸い出す
