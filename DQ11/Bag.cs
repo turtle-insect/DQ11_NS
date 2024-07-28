@@ -20,6 +20,7 @@ namespace DQ11
 
 			uint count = SaveData.Instance().ReadNumber(address, 4);
 			address += 4;
+			Items.Clear();
 			for (uint i = 0; i < count; i++)
 			{
 				Items.Add(new Item(address));

@@ -26,7 +26,19 @@ namespace DQ11
 			for(int i = 0; i < Party.Count; i++)
 			{
 				address = Party[i].Inventory.Create(address);
-				address += 4;
+				var value = SaveData.Instance().ReadNumber(address, 1);
+				if (value == 0)
+				{
+					address += 4;
+				}
+				else
+				{
+					// dummy?
+					// back up item?
+					// if this sequence read skip bag.
+					var bag = new Bag();
+					address = bag.Create(address);
+				}
 			}
 
 			Items.Create(address);
