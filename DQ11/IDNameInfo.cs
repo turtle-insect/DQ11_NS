@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace DQ11
+﻿namespace DQ11
 {
 	class IDNameInfo : ILineAnalysis, IComparable
 	{
