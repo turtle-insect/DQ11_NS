@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using DragonQuestXI.Cryptography;
 
 namespace DQ11
 {
@@ -14,7 +14,7 @@ namespace DQ11
 		private Byte[] mHeader = null;
 		private Byte[] mBuffer = null;
 		public uint Adventure { private get; set; } = 0;
-		private const String mKey = "C5VbD9SJxe4FhK7wnWxy_LVSuHfbQjAUHBLxstRi3JBRc5eZVK6jQm9YGXDugs6J";
+		private const String mKey = "C5VbD9SJxe4FhK7wnWxy_LVSuHfbQjAU";
 
 		private SaveData()
 		{ }
@@ -34,8 +34,13 @@ namespace DQ11
 			mBuffer = new Byte[tmp.Length - 8];
 			Array.Copy(tmp, mHeader, mHeader.Length);
 			Array.Copy(tmp, 8, mBuffer, 0, mBuffer.Length);
-			DragonKey dKey = new DragonKey(Encoding.ASCII.GetBytes(mKey));
-			dKey.Decrypt(mBuffer);
+
+			using var aes = Aes.Create();
+			aes.Mode = CipherMode.ECB;
+			aes.Padding = PaddingMode.None;
+			aes.Key = System.Text.Encoding.UTF8.GetBytes(mKey);
+			using var cryptor = aes.CreateDecryptor();
+			mBuffer = cryptor.TransformFinalBlock(mBuffer, 0, mBuffer.Length);
 
 			if(force == false)
 			{
@@ -72,8 +77,13 @@ namespace DQ11
 			WriteNumber((uint)mBuffer.Length - 12, 4, CalcCheckSum());
 			Byte[] enc = new Byte[mBuffer.Length];
 			Array.Copy(mBuffer, enc, enc.Length);
-			DragonKey dKey = new DragonKey(Encoding.ASCII.GetBytes(mKey));
-			dKey.Encrypt(enc);
+
+			using var aes = Aes.Create();
+			aes.Mode = CipherMode.ECB;
+			aes.Padding = PaddingMode.None;
+			aes.Key = System.Text.Encoding.UTF8.GetBytes(mKey);
+			using var cryptor = aes.CreateEncryptor();
+			enc = cryptor.TransformFinalBlock(enc, 0, enc.Length);
 
 			Byte[] tmp = new byte[enc.Length + mHeader.Length];
 			Array.Copy(mHeader, tmp, mHeader.Length);
@@ -290,7 +300,8 @@ namespace DQ11
 		private uint CalcCheckSum()
 		{
 			uint size = ReadNumber((uint)mBuffer.Length - 16, 4);
-			return (uint)DragonKey.GetChecksum(mBuffer, (int)size);
+			var crc32 = new Crc32(0xEDB88320);
+			return crc32.Calc(mBuffer, 0, (int)size);
 		}
 
 		private uint CalcAddress(uint address)
