@@ -19,9 +19,13 @@ namespace DQ11
 				Party.Add(new Character(item));
 			}
 
-			var itemIndex = SaveData.Instance().FindAddress("DLC_07", 0);
-			if (itemIndex.Count == 0) return;
-			uint address = itemIndex[0] + 11;
+			// This really needs to be implemented more properly.
+			// Since it was just a quick fix to begin with, I’ll settle for this for now.
+			var baseIndex = SaveData.Instance().FindAddress("DLC_00", 0);
+			if (baseIndex.Count == 0) return;
+			uint address = baseIndex[0] - 8;
+			uint dlcCount = SaveData.Instance().ReadNumber(address, 4);
+			address += 4 + (4 + 7 + 4) * dlcCount;
 
 			for(int i = 0; i < Party.Count; i++)
 			{
