@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DQ11
+﻿namespace DQ11
 {
 	class Info
 	{
