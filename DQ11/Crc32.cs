@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DQ11
+﻿namespace DQ11
 {
 	internal class Crc32
 	{
